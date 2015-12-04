@@ -1,15 +1,111 @@
 <!DOCTYPE html>
 <html ng-app="osm-nashville">
 <head>
+  <meta charset="utf-8">
   <title>OSM Nashville</title>
   <link rel="stylesheet" href="assets/lib/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/styles/main.css">
-</head>
-<body>
-  <div ng-view></div>
+
+<!-- mapbox code -->
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.css' rel='stylesheet' />
+  <style>
+    body { margin:0; padding:0; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+<!-- end of mapbox -->
+
+  </head>
+  <body>
+    <div ng-view></div>
+
+    <!-- mapbox code -->
+
+    <div id='map'></div>
+  <style>
+  .ui-button {
+    background:#3887BE;
+    color:#FFF;
+    display:block;
+    position:absolute;
+    top:50%;left:50%;
+    width:160px;
+    margin:-20px 0 0 -80px;
+    z-index:100;
+    text-align:center;
+    padding:10px;
+    border:1px solid rgba(0,0,0,0.4);
+    border-radius:3px;
+    }
+    .ui-button:hover {
+      background:#3074a4;
+      color:#fff;
+      }
+  </style>
+
+  <div id='map'></div>
+  <a href='#' id='geolocate' class='ui-button'>Find me</a>
+
+  <script>
+  L.mapbox.accessToken = 'pk.eyJ1IjoibHJvdXNlIiwiYSI6ImNpaHBnYmkxaDA0NGJ0c20yMG5sMmZlenIifQ.NVpXXlzfBCtK00m36zp68Q';
+  var geolocate = document.getElementById('geolocate');
+  var map = L.mapbox.map('map', 'mapbox.streets');
+
+  var myLayer = L.mapbox.featureLayer().addTo(map);
+
+  // This uses the HTML5 geolocation API, which is available on
+  // most mobile browsers and modern browsers, but not in Internet Explorer
+  //
+  // See this chart of compatibility for details:
+  // http://caniuse.com/#feat=geolocation
+  if (!navigator.geolocation) {
+      geolocate.innerHTML = 'Geolocation is not available';
+  } else {
+      geolocate.onclick = function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          map.locate();
+      };
+  }
+
+
+  // Once we've got a position, zoom and center the map
+  // on it, and add a single marker.
+  map.on('locationfound', function(e) {
+      map.fitBounds(e.bounds);
+
+      console.log("Latitude || Longitude: " , e.latlng.lat, " || ", e.latlng.lng)
+
+      myLayer.setGeoJSON({
+          type: 'Feature',
+          geometry: {
+              type: 'Point',
+              coordinates: [e.latlng.lng, e.latlng.lat]
+          },
+          properties: {
+              'title': 'Here I am!',
+              'marker-color': '#ff8888',
+              'marker-symbol': 'star'
+          }
+      });
+
+      // And hide the geolocation button
+      geolocate.parentNode.removeChild(geolocate);
+  });
+
+  // If the user chooses not to allow their location
+  // to be shared, display an error message.
+  map.on('locationerror', function() {
+      geolocate.innerHTML = 'Position could not be found';
+  });
+  </script>
+
+<!-- end of mapbox code -->
 
   <!-- scripts -->
   <!-- libraries -->
+  <script src="assets/lib/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="assets/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- angular -->
   <script src="assets/lib/bower_components/angular/angular.js"></script>
