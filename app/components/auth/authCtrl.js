@@ -44,6 +44,7 @@ app.controller("AuthCtrl",
         console.log("logout clicked!");
         AuthService.$unauth();
         this.AuthData = null;
+        $location.path("/");
       };
     }
   ]);
