@@ -15,6 +15,12 @@ app.controller("MapCtrl",
   // See this chart of compatibility for details:
   // http://caniuse.com/#feat=geolocation
 
+      // this.Geolocate = function(e){
+      //   e.preventDefault();
+      //   e.stopPropagation();
+      //   map.locate();
+      // };
+
       if (!navigator.geolocation) {
         geolocate.innerHTML = 'Geolocation is not available';
       } else {
