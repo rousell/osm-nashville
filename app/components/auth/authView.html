@@ -1,30 +1,30 @@
-<div ng-hide="authCtrl.AuthData">
+<div class="container" ng-hide="authCtrl.AuthData">
   <div class="row"><h2>OSM Nashville</h2></div>
   <div class="row">
-    <form class="col-sm-6">
+    <form class="col-xs-4 col-xs-offset-1">
       <h4>Login</h4>
       <div class="form-group">
         <label for="email">Email address:</label>
-        <input type="email" ng-model="authCtrl.email" placeholder="Email">
+        <input type="email" class="form-control" ng-model="authCtrl.email" placeholder="Email">
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" ng-model="authCtrl.password" placeholder="Password">
+        <input type="password" class="form-control" ng-model="authCtrl.password" placeholder="Password">
       </div>
-      <a ng-click="authCtrl.AuthLogin()"><button type="button">Log In</button></a>
+      <a ng-click="authCtrl.AuthLogin()"><button type="button" class="btn btn-default">Log In</button></a>
     </form>
-    <div class="col-sm-6">
+    <div class="col-xs-4 col-xs-offset-2">
       <form>
         <h4>Sign Up</h4>
           <div class="form-group">
             <label for="email_rg">Email address</label>
-            <input type="email" ng-model="authCtrl.emailrg" placeholder="Email">
+            <input type="email" class="form-control" ng-model="authCtrl.emailrg" placeholder="Email">
           </div>
           <div class="form-group">
             <label for="password_rg">Password</label>
-            <input type="password" ng-model="authCtrl.passwordrg" placeholder="Password">
+            <input type="password" class="form-control" ng-model="authCtrl.passwordrg" placeholder="Password">
           </div>
-          <a href="#/login" ng-click="authCtrl.AuthRegister()"><button type="button">Register</button></a>
+          <a href="#/login" ng-click="authCtrl.AuthRegister()"><button type="button" class="btn btn-default">Register</button></a>
         </form>
 
     </div>
