@@ -1,5 +1,17 @@
-  <div id='map'></div>
+<!--   <div id='map'></div> -->
   <div ng-include="'app/shared/navbar/navbarView.html'"></div>
 
+
+
+<leaflet lf-center="london" width="100%" height="480px"></leaflet>
+ <h1>Center map example</h1>
+ <ul>
+     <li><input type="number" step="any" ng-model="london.lat" /> Latitude</li>
+     <li><input type="number" step="any" ng-model="london.lng" /> Longitude</li>
+     <li><input type="number" step="any" ng-model="london.zoom" /> Zoom</li>
+ </ul>
+
 <!--   <a id='geolocate' class='ui-button'>Mark Current Location</a> -->
+
+
 

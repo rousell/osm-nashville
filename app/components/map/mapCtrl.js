@@ -1,26 +1,38 @@
-app.controller("MapCtrl",
-  [
-    "$location",
-    function($location) {
+// app.controller("MapCtrl",
+//   [
+//     "$location",
+//     function($location) {
 
-      var map = L.map('map').setView([55.676, 12.568], 13);
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1IjoibHJvdXNlIiwiYSI6ImNpaHBnYmkxaDA0NGJ0c20yMG5sMmZlenIifQ.NVpXXlzfBCtK00m36zp68Q'
-      }).addTo(map);
+//       var map = L.map('map').setView([55.676, 12.568], 13);
+//       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+//         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+//         maxZoom: 18,
+//         id: 'mapbox.streets',
+//         accessToken: 'pk.eyJ1IjoibHJvdXNlIiwiYSI6ImNpaHBnYmkxaDA0NGJ0c20yMG5sMmZlenIifQ.NVpXXlzfBCtK00m36zp68Q'
+//       }).addTo(map);
 
-      var popup = L.popup();
 
-      function onMapClick(e) {
-          popup
-              .setLatLng(e.latlng)
-              .setContent("You clicked the map at " + e.latlng.toString())
-              .openOn(map);
-      }
+app.controller('MapCtrl', [ '$scope', function($scope) {
+    angular.extend($scope, {
+        london: {
+            lat: 51.505,
+            lng: -0.09,
+            zoom: 4
+        }
+    });
+}]);
 
-      map.on('click', onMapClick);
+
+      // var popup = L.popup();
+
+      // function onMapClick(e) {
+      //     popup
+      //         .setLatLng(e.latlng)
+      //         .setContent("You clicked the map at " + e.latlng.toString())
+      //         .openOn(map);
+      // }
+
+      // map.on('click', onMapClick);
 
 
 
@@ -84,5 +96,9 @@ app.controller("MapCtrl",
   //       geolocate.innerHTML = 'Position could not be found';
   //     });
 
-    }
-  ]);
+
+
+
+
+  //   }
+  // ]);
