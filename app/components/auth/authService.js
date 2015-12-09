@@ -1,9 +1,11 @@
 app.factory("AuthService", [
   "$firebaseAuth",
-  function($firebaseAuth) {
+  "$firebaseArray",
+  function($firebaseAuth, $firebaseArray) {
 
     var ref = new Firebase("https://osm-nashville.firebaseio.com/");
     return $firebaseAuth(ref);
+
 
   }
 ]);
