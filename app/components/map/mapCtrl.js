@@ -1,23 +1,33 @@
 app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthService', function($scope, leafletData, $firebaseArray, AuthService) {
 
     var ref = new Firebase("https://osm-nashville.firebaseio.com/Marks");
-    $scope.marks = $firebaseArray(ref);
+    var firebaseMarks = $firebaseArray(ref);
 
-    console.log($scope.marks);
+    // console.log($scope.marks);
+    $scope.marks = [];
 
     $scope.userAuth = AuthService.$getAuth();
 
-    var userMarks = [];
-    userMarks.push({
-        lat: 36.161278,
-        lng: -86.7785,
-        draggable: false
-    });
-    userMarks.push({
-        lat: 52.219081,
-        lng: 21.025386,
-        draggable: false
-    });
+    firebaseMarks.$loaded()
+      .then(function(){
+        angular.forEach(firebaseMarks, function(mark) {
+        console.log(mark);
+        $scope.marks.push(mark);
+        })
+      });
+
+
+    // var userMarks = $scope.marks;
+    // userMarks.push({
+    //     lat: 36.161278,
+    //     lng: -86.7785,
+    //     draggable: false
+    // });
+    // userMarks.push({
+    //     lat: 52.219081,
+    //     lng: 21.025386,
+    //     draggable: false
+    // });
 
     angular.extend($scope, {
       center: {
@@ -52,17 +62,17 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           }
         }
       },
-      userMarks: userMarks
+      userMarks: $scope.marks
     });
 
     // $scope.eventDetected = "No events yet...";
 
     $scope.addMarkers = function(args){
-      userMarks.push({
+      $scope.marks.push({
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
       });
-      $scope.marks.$add({
+      firebaseMarks.$add({
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
         uid: $scope.userAuth.uid,
