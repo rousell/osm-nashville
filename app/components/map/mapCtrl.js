@@ -13,7 +13,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         angular.forEach(firebaseMarks, function(mark) {
         console.log(mark);
         $scope.marks.push(mark);
-        })
+        });
       });
 
 
@@ -76,6 +76,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
         uid: $scope.userAuth.uid,
+        dateAdded: Date.now(),
       });
     };
 
