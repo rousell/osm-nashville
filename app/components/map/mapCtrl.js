@@ -17,6 +17,18 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         });
       });
 
+    var local_icons = {
+        default_icon: {},
+        leaf_icon: {
+            iconUrl: 'assets/img/green-circle-md.png',
+            iconSize:     [20, 20], // size of the icon
+            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+            popupAnchor:  [0, 0], // point from which the popup should open relative to the iconAnchor
+            fillOpacity: 0.6
+        }
+    };
+
+
     angular.extend($scope, {
       center: {
         lat: 36.16666,
@@ -48,6 +60,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
               url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
               type: 'xyz'
           }
+
         }
       },
       userMarks: $scope.marks
@@ -57,12 +70,14 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
       $scope.marks.push({
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
+        icon: local_icons.leaf_icon,
       });
       firebaseMarks.$add({
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
         uid: $scope.userAuth.uid,
         dateAdded: Date.now(),
+        icon: local_icons.leaf_icon,
       });
     };
 
@@ -93,12 +108,14 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         $scope.marks.push({
           lat: pos.coords.latitude.toFixed(3),
           lng: pos.coords.longitude.toFixed(3),
+          icon: local_icons.leaf_icon,
         });
         firebaseMarks.$add({
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
           uid: $scope.userAuth.uid,
           dateAdded: Date.now(),
+          icon: local_icons.leaf_icon,
       });
       }
       $scope.btn = true;
