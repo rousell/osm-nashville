@@ -1,4 +1,4 @@
-app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthService', '$location', function($scope, leafletData, $firebaseArray, AuthService, $location) {
+app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthService', '$location', 'leafletPathsHelpers', function($scope, leafletData, $firebaseArray, AuthService, $location, leafletPathsHelpers) {
 
     var ref = new Firebase("https://osm-nashville.firebaseio.com/Marks");
     var firebaseMarks = $firebaseArray(ref);
@@ -24,7 +24,6 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
             iconSize:     [20, 20], // size of the icon
             iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
             popupAnchor:  [0, 0], // point from which the popup should open relative to the iconAnchor
-            fillOpacity: 0.6
         }
     };
 
@@ -33,10 +32,13 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
       center: {
         lat: 36.16666,
         lng: -86.78333,
-        zoom: 4,
+        zoom: 12,
       },
       defaults: {
         scrollWheelZoom: false
+      },
+      controls: {
+        scale: true
       },
       events: {
         map: {
@@ -71,6 +73,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
         icon: local_icons.leaf_icon,
+        opacity: .6,
       });
       firebaseMarks.$add({
         lat: args.leafletEvent.latlng.lat,
@@ -78,6 +81,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         uid: $scope.userAuth.uid,
         dateAdded: Date.now(),
         icon: local_icons.leaf_icon,
+        opacity: .6,
       });
     };
 
@@ -109,6 +113,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           lat: pos.coords.latitude.toFixed(3),
           lng: pos.coords.longitude.toFixed(3),
           icon: local_icons.leaf_icon,
+          opacity: .6,
         });
         firebaseMarks.$add({
           lat: pos.coords.latitude,
@@ -116,6 +121,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           uid: $scope.userAuth.uid,
           dateAdded: Date.now(),
           icon: local_icons.leaf_icon,
+          opacity: .6,
       });
       }
       $scope.btn = true;
