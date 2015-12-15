@@ -7,7 +7,7 @@ app.config(['$routeProvider',
       })
       .when('/map', {
         templateUrl: 'app/components/map/mapView.html',
-        controller: 'MapCtrl as mapCtrl'
+        controller: 'MapCtrl'
       })
 
       .otherwise({redirectTo: '/'});

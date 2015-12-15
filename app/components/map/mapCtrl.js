@@ -9,6 +9,11 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
 
     $scope.userAuth = AuthService.$getAuth();
 
+    $scope.showgraphSidebar = false;
+    $scope.toggle = function() {
+        $scope.showgraphSidebar = !$scope.showgraphSidebar;
+    };
+
     firebaseMarks.$loaded()
       .then(function(){
         angular.forEach(firebaseMarks, function(mark) {
@@ -73,7 +78,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
         icon: local_icons.leaf_icon,
-        opacity: .6,
+        opacity: 0.6,
       });
       firebaseMarks.$add({
         lat: args.leafletEvent.latlng.lat,
@@ -81,7 +86,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         uid: $scope.userAuth.uid,
         dateAdded: Date.now(),
         icon: local_icons.leaf_icon,
-        opacity: .6,
+        opacity: 0.6,
       });
     };
 
@@ -113,7 +118,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           lat: pos.coords.latitude.toFixed(3),
           lng: pos.coords.longitude.toFixed(3),
           icon: local_icons.leaf_icon,
-          opacity: .6,
+          opacity: 0.6,
         });
         firebaseMarks.$add({
           lat: pos.coords.latitude,
@@ -121,7 +126,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           uid: $scope.userAuth.uid,
           dateAdded: Date.now(),
           icon: local_icons.leaf_icon,
-          opacity: .6,
+          opacity: 0.6,
       });
       }
       $scope.btn = true;
