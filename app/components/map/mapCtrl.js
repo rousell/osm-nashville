@@ -32,6 +32,17 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         }
     };
 
+    leafletData.getMap().then(function(map) {
+      leafletData.getLayers().then(function(baselayers) {
+        var drawnItems = baselayers.overlays.draw;
+        map.on('draw:created', function (e) {
+          var layer = e.layer;
+          var type = e.type;
+          drawnItems.addLayer(layer);
+          console.log(layer.toGeoJSON());
+        });
+      });
+     });
 
     angular.extend($scope, {
       center: {
@@ -43,7 +54,12 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         scrollWheelZoom: false
       },
       controls: {
-        scale: true
+        scale: true,
+        draw: {
+          rectangle: {
+            isValid: false
+          }
+        }
       },
       events: {
         map: {
@@ -67,7 +83,16 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
               url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
               type: 'xyz'
           }
-
+        },
+        overlays: {
+          draw: {
+            name: 'draw',
+            type: 'group',
+            visible: true,
+            layerParams: {
+                showOnSelector: false
+            }
+          }
         }
       },
       userMarks: $scope.marks
@@ -90,11 +115,11 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
       });
     };
 
-    $scope.$on('leafletDirectiveMap.click', function(e, args){
-      console.log("you clicked the map at: ", args.leafletEvent.latlng);
-      $scope.addMarkers(args);
-      e.stopPropagation();
-    });
+    // $scope.$on('leafletDirectiveMap.click', function(e, args){
+    //   console.log("you clicked the map at: ", args.leafletEvent.latlng);
+    //   $scope.addMarkers(args);
+    //   e.stopPropagation();
+    // });
 
     $scope.geolocate = function(e) {
       if('geolocation' in navigator){

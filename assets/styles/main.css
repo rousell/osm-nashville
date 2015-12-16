@@ -4,11 +4,8 @@ h2 {
 .row div {
   height: 200px; }
 
-#colPush {
-  background-color: #A6BFBA; }
-
-.sidebarDiv {
-  z-index: 9999;
-  position: fixed; }
+input {
+  width: 120px;
+  margin-right: 10px; }
 
 /*# sourceMappingURL=main.css.map */
