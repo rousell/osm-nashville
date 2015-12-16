@@ -3,6 +3,12 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     var ref = new Firebase("https://osm-nashville.firebaseio.com/Marks");
     var firebaseMarks = $firebaseArray(ref);
     $scope.btn = false;
+    var clickMark = false;
+
+    $scope.clickNumber = function(click){
+      clickMark = true;
+      console.log("here is the change in clickMark ", clickMark);
+    };
 
     // console.log($scope.marks);
     $scope.marks = [];
@@ -91,9 +97,14 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     };
 
     $scope.$on('leafletDirectiveMap.click', function(e, args){
-      console.log("you clicked the map at: ", args.leafletEvent.latlng);
-      $scope.addMarkers(args);
-      e.stopPropagation();
+      if (clickMark === true) {
+        console.log("you clicked the map at: ", args.leafletEvent.latlng);
+        $scope.addMarkers(args);
+        e.stopPropagation();
+        clickMark = false;
+      } else {
+        console.log("you are not yet able to make a mark!");
+      }
     });
 
     $scope.geolocate = function(e) {
