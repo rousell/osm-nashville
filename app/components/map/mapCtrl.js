@@ -97,13 +97,13 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     };
 
     $scope.$on('leafletDirectiveMap.click', function(e, args){
-      if (clickMark === true) {
+      if (clickMark === false) {
+        console.log("you are not yet able to make a mark!");
+      } else {
         console.log("you clicked the map at: ", args.leafletEvent.latlng);
         $scope.addMarkers(args);
         e.stopPropagation();
         clickMark = false;
-      } else {
-        console.log("you are not yet able to make a mark!");
       }
     });
 
