@@ -3,22 +3,30 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     var ref = new Firebase("https://osm-nashville.firebaseio.com/Marks");
     var firebaseMarks = $firebaseArray(ref);
     $scope.btn = false;
-    var clickMark = false;
+    $scope.clickMark = false;
 
-    $scope.clickNumber = function(click){
-      clickMark = true;
-      console.log("here is the change in clickMark ", clickMark);
+
+    this.clickNumber = function(){
+      $scope.clickMark = true;
+      console.log("here is the change in clickMark ", $scope.clickMark);
     };
 
-    // console.log($scope.marks);
+    $scope.$on('leafletDirectiveMap.click', function(e, args){
+      if ($scope.clickMark === false) {
+        console.log("you are not yet able to make a mark!");
+      } else {
+        console.log("you clicked the map at: ", args.leafletEvent.latlng);
+        $scope.addMarkers(args);
+        e.stopPropagation();
+        $scope.clickMark = false;
+        console.log($scope.clickMark);
+      }
+    });
+
+
     $scope.marks = [];
 
     $scope.userAuth = AuthService.$getAuth();
-
-    $scope.showgraphSidebar = false;
-    $scope.toggle = function() {
-        $scope.showgraphSidebar = !$scope.showgraphSidebar;
-    };
 
     firebaseMarks.$loaded()
       .then(function(){
@@ -96,16 +104,6 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
       });
     };
 
-    $scope.$on('leafletDirectiveMap.click', function(e, args){
-      if (clickMark === false) {
-        console.log("you are not yet able to make a mark!");
-      } else {
-        console.log("you clicked the map at: ", args.leafletEvent.latlng);
-        $scope.addMarkers(args);
-        e.stopPropagation();
-        clickMark = false;
-      }
-    });
 
     $scope.geolocate = function(e) {
       if('geolocation' in navigator){
