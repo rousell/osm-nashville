@@ -3,7 +3,8 @@ app.controller("UploadCtrl",
   "$uibModal",
   "AuthService",
   "$firebaseObject",
-  function($uibModal, AuthService, $firebaseObject) {
+  "$uibModalInstance",
+  function($uibModal, AuthService, $firebaseObject, $uibModalInstance) {
 
     this.userAuth = AuthService.$getAuth();
     this.ref = new Firebase("https://osm-nashville.firebaseio.com/Marks/");

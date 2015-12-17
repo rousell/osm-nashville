@@ -49,31 +49,31 @@
   </div>
 </div> -->
   <leaflet class="col-xs-9" event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="540px"></leaflet>
+
+  <div ng-hide="false" class="col-xs-3 col-offset-xs-9 markInfoBox container">
+    <div class="form-group-sm">
+      <label for="">Mark Label:</label>
+      <input class="form-control" type="text" ng-model="mapCtrl.name" />
+    </div>
+    <div class="form-group-sm">
+      <label for="">Description:</label>
+      <textarea class="form-control custom-control" rows="2" style="resize:none" ng-model="mapCtrl.description"></textarea>
+    </div>
+    <div>
+      <label for="">Created by: {{markDataInFocus.uid}}</label>
+    </div>
+    <div>
+      <label for="">Votes:
+        <button type="button" id="testBtn" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-up" ng-click="upVote()" data-loading-text=" ... "> 0</button>
+        <button type="button" id="testBtnDown" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-down" ng-click"downVote()" data-loading-text=" ... "> 0</button>
+      </label>
+    </div>
+    <div ng-controller="ModalCtrl as modalCtrl">
+      <button class="btn btn-default" ng-click="modalCtrl.showUploadModal()">Upload Photo</button>
+    </div>
+
+    <button class="btn btn-default" ng-click="">Add Mark</button>
+  </div>
+
+
 </div>
-
-<div ng-hide="false" class="col-xs-3 col-offset-xs-9 markInfoBox container">
-  <div class="form-group-sm">
-    <label for="">Mark Name:</label>
-    <input class="form-control" type="text" ng-model="MapCtrl.name" />
-  </div>
-  <div class="form-group-sm">
-    <label for="">Description:</label>
-    <textarea class="form-control custom-control" rows="2" style="resize:none" ng-model="MapCtrl.description"></textarea>
-  </div>
-  <div>
-    <label for="">Created by: {{User}}</label>
-  </div>
-  <div>
-    <label for="">Votes:
-      <button type="button" id="testBtn" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-up" ng-click="upVote()" data-loading-text=" ... "> 0</button>
-      <button type="button" id="testBtnDown" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-down" ng-click"downVote()" data-loading-text=" ... "> 0</button>
-    </label>
-  </div>
-  <div ng-controller="ModalCtrl as modalCtrl">
-    <button class="btn btn-default" ng-click="modalCtrl.showUploadModal()">Upload Photo</button>
-  </div>
-
-  <button class="btn btn-default" ng-click="addsong.addSong()">Add Song</button>
-</div>
-
-

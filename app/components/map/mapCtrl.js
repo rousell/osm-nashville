@@ -1,9 +1,11 @@
-app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthService', '$location', 'leafletPathsHelpers', function($scope, leafletData, $firebaseArray, AuthService, $location, leafletPathsHelpers) {
+app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthService', '$location', 'leafletMarkerEvents', function($scope, leafletData, $firebaseArray, AuthService, $location, leafletMarkerEvents) {
 
     var ref = new Firebase("https://osm-nashville.firebaseio.com/Marks");
     var firebaseMarks = $firebaseArray(ref);
     $scope.btn = false;
     $scope.clickMark = false;
+    $scope.markInFocus = "";
+    $scope.markDataInFocus = [];
 
 
     this.clickNumber = function(){
@@ -14,15 +16,47 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     $scope.$on('leafletDirectiveMap.click', function(e, args){
       if ($scope.clickMark === false) {
         console.log("you are not yet able to make a mark!");
+        $scope.markInFocus = "";
+        $scope.markDataInFocus = [];
       } else {
         console.log("you clicked the map at: ", args.leafletEvent.latlng);
-        $scope.addMarkers(args);
+        $scope.addMarkers(args)
+          .then(function(ref) {
+            var id = ref.key();
+            $scope.marks.push({
+              lat: args.leafletEvent.latlng.lat,
+              lng: args.leafletEvent.latlng.lng,
+              icon: local_icons.leaf_icon,
+              opacity: 0.6,
+              id: id,
+            });
+            console.log("added record with id " + id);
+            $scope.markInFocus = id;
+            $scope.markDataInFocus = firebaseMarks.$getRecord(id);
+            console.log($scope.markDataInFocus);
+          });
         e.stopPropagation();
         $scope.clickMark = false;
         console.log($scope.clickMark);
       }
     });
 
+    $scope.$on('leafletDirectiveMarker.click', function(e, args){
+      console.log(args);
+      if (args.model.id === undefined){
+        var $id = args.model.$id;
+        console.log($id);
+        $scope.markInFocus = $id;
+        $scope.markDataInFocus = firebaseMarks.$getRecord($id);
+        console.log($scope.markDataInFocus.uid);
+      } else if (args.model.$id === undefined){
+        var id = args.model.id;
+        console.log(id);
+        $scope.markInFocus = id;
+        $scope.markDataInFocus = firebaseMarks.$getRecord(id);
+        console.log($scope.markDataInFocus.uid);
+      }
+    });
 
     $scope.marks = [];
 
@@ -30,6 +64,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
 
     firebaseMarks.$loaded()
       .then(function(){
+        // console.log(firebaseMarks);
         angular.forEach(firebaseMarks, function(mark) {
         // console.log(mark);
         $scope.marks.push(mark);
@@ -63,6 +98,9 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         map: {
           enable: ['click'],
           logic: 'emit'
+        },
+        markers: {
+          enable: leafletMarkerEvents.getAvailableEvents(),
         }
       },
       layers: {
@@ -88,13 +126,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     });
 
     $scope.addMarkers = function(args){
-      $scope.marks.push({
-        lat: args.leafletEvent.latlng.lat,
-        lng: args.leafletEvent.latlng.lng,
-        icon: local_icons.leaf_icon,
-        opacity: 0.6,
-      });
-      firebaseMarks.$add({
+      return firebaseMarks.$add({
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
         uid: $scope.userAuth.uid,
@@ -102,13 +134,15 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         icon: local_icons.leaf_icon,
         opacity: 0.6,
       });
+      // return added÷id;
     };
 
 
-    $scope.geolocate = function(e) {
+    this.geolocate = function(e) {
       if('geolocation' in navigator){
         navigator.geolocation.getCurrentPosition(success);
-      }else{
+        console.log("first bit done...");
+      } else {
         console.log("Geolocation wasn't possible :(");
       }
       function success(pos){
@@ -123,12 +157,6 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           $location.search({ c: centerHash });
         });
 
-        $scope.marks.push({
-          lat: pos.coords.latitude.toFixed(3),
-          lng: pos.coords.longitude.toFixed(3),
-          icon: local_icons.leaf_icon,
-          opacity: 0.6,
-        });
         firebaseMarks.$add({
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
@@ -136,7 +164,17 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           dateAdded: Date.now(),
           icon: local_icons.leaf_icon,
           opacity: 0.6,
-      });
+        }).then(function(ref) {
+          var id = ref.key();
+          console.log(ref);
+          $scope.marks.push({
+            lat: latitude,
+            lng: longitude,
+            icon: local_icons.leaf_icon,
+            opacity: 0.6,
+            id: id,
+          });
+        });
       }
       $scope.btn = true;
     };
