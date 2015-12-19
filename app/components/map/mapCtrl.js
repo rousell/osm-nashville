@@ -70,16 +70,25 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         dateAdded: Date.now(),
         icon: local_icons.leaf_icon,
         opacity: 0.6,
-        test: "test",
         name: "name",
+        description: "",
+        votes: "",
+        images: "",
       });
       // return added id;
     };
     firebaseMarks.$loaded()
       .then(function(){
         angular.forEach(firebaseMarks, function(mark) {
-        $scope.marks.push(mark);
-        });
+          if (mark.uid === $scope.userAuth.uid ){
+            mark.editable = true;
+          } else {
+            mark.editable = false;
+          }
+          $scope.marks.push(mark);
+          console.log("these are the marks on the map, ", mark);
+          });
+        // userCheck();
       });
 
     this.saveBtn = function(){
@@ -115,6 +124,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
               icon: $scope.markDataInFocus.icon,
               opacity: $scope.markDataInFocus.opacity,
               id: $scope.markDataInFocus.$id,
+              editable: true,
             });
           });
         $scope.clickMark = false;
@@ -138,10 +148,6 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         // console.log($scope.markDataInFocus.uid);
       }
     });
-
-
-
-
 
     this.geolocate = function(e) {
       if('geolocation' in navigator){
@@ -170,14 +176,16 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           icon: local_icons.leaf_icon,
           opacity: 0.6,
         }).then(function(ref) {
-          var id = ref.key();
-          console.log(ref);
+          var $id = ref.key();
+          $scope.markInFocus = $id;
+          $scope.markDataInFocus = firebaseMarks.$getRecord($id);
+          console.log($scope.markDataInFocus);
           $scope.marks.push({
-            lat: latitude,
-            lng: longitude,
-            icon: local_icons.leaf_icon,
-            opacity: 0.6,
-            id: id,
+            lat: $scope.markDataInFocus.lat,
+            lng: $scope.markDataInFocus.lng,
+            icon: $scope.markDataInFocus.icon,
+            opacity: $scope.markDataInFocus.opacity,
+            id: $scope.markDataInFocus.$id,
           });
         });
       }
