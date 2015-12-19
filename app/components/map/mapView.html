@@ -21,7 +21,7 @@
           <button type="submit" class="btn btn-default">Submit</button>
         </form> -->
         <ul class="nav navbar-nav navbar-right">
-          <li><a ng-click='mapCtrl.clickNumber()'>Add Mark</a></li>
+          <li><a ng-click='mapCtrl.clickMark()'>Add Mark</a></li>
           <li><a ng-hide='btn' ng-click='mapCtrl.geolocate()'>Mark Current Location</a></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
@@ -53,14 +53,14 @@
   <div ng-hide="false" class="col-xs-3 col-offset-xs-9 markInfoBox container">
     <div class="form-group-sm">
       <label for="">Mark Label:</label>
-      <input class="form-control" type="text" ng-model="mapCtrl.name" />
+      <div>{{markDataInFocus.name}}</div><input class="form-control" type="text" ng-model="markDataInFocus.name" />
     </div>
     <div class="form-group-sm">
       <label for="">Description:</label>
       <textarea class="form-control custom-control" rows="2" style="resize:none" ng-model="mapCtrl.description"></textarea>
     </div>
     <div>
-      <label for="">Created by: {{markDataInFocus.uid}}</label>
+      <label for="">Created by: {{markDataInFocus.test}}</label>
     </div>
     <div>
       <label for="">Votes:
@@ -72,7 +72,7 @@
       <button class="btn btn-default" ng-click="modalCtrl.showUploadModal()">Upload Photo</button>
     </div>
 
-    <button class="btn btn-default" ng-click="">Add Mark</button>
+    <button class="btn btn-default" ng-click="mapCtrl.saveBtn()">Add Mark</button>
   </div>
 
 
