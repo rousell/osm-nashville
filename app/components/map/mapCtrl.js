@@ -153,7 +153,10 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
       var mark = firebaseMarks[index];
       firebaseMarks.$remove(mark).then(function(ref){
         console.log("item was removed, here's some reference ", ref);
+        // Here I want to remove the instance of the marks array on the map.
       });
+      $scope.markDataInFocus = {};
+      $scope.markInFocus = "";
     };
 
     this.geolocate = function(e) {
