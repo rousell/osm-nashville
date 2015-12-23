@@ -75,7 +75,6 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         votes: "",
         images: "",
       });
-      // return added id;
     };
     firebaseMarks.$loaded()
       .then(function(){
@@ -86,13 +85,12 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
             mark.editable = false;
           }
           $scope.marks.push(mark);
-          console.log("these are the marks on the map, ", mark);
+          // console.log("these are the marks on the map, ", mark);
           });
-        // userCheck();
       });
 
     this.saveBtn = function(){
-      console.log("add mark button clicked");
+      // console.log("add mark button clicked");
       firebaseMarks.$save($scope.markDataInFocus)
         .then(function(ref){
           console.log(ref);
@@ -101,7 +99,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
 
     this.clickMark = function(){
       $scope.clickMark = true;
-      console.log("here is the change in clickMark ", $scope.clickMark);
+      // console.log("here is the change in clickMark ", $scope.clickMark);
     };
 
     $scope.$on('leafletDirectiveMap.click', function(e, args){
@@ -115,8 +113,8 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
             var $id = ref.key();
             $scope.markInFocus = $id;
             $scope.markDataInFocus = firebaseMarks.$getRecord($id);
-            console.log($scope.markDataInFocus);
-            console.log("added record with $id " + $id);
+            // console.log($scope.markDataInFocus);
+            // console.log("added record with $id " + $id);
 
             $scope.marks.push({
               lat: $scope.markDataInFocus.lat,
@@ -128,7 +126,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
             });
           });
         $scope.clickMark = false;
-        console.log($scope.clickMark);
+        // console.log($scope.clickMark);
       }
     });
 
@@ -149,22 +147,31 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
       }
     });
 
+    this.deleteMark = function($id) {
+      console.log("clicked");
+      var index = firebaseMarks.$indexFor($id);
+      var mark = firebaseMarks[index];
+      firebaseMarks.$remove(mark).then(function(ref){
+        console.log("item was removed, here's some reference ", ref);
+      });
+    };
+
     this.geolocate = function(e) {
       if('geolocation' in navigator){
         navigator.geolocation.getCurrentPosition(success);
-        console.log("first bit done...");
+        // console.log("first bit done...");
       } else {
         console.log("Geolocation wasn't possible :(");
       }
       function success(pos){
         var latitude = pos.coords.latitude.toFixed(5);
         var longitude = pos.coords.longitude.toFixed(5);
-        console.log("geolocation is done! : ", latitude, longitude);
+        // console.log("geolocation is done! : ", latitude, longitude);
 
         $location.search({ c: latitude+':'+longitude+':'+16});
 
         $scope.$on("centerUrlHash", function(event, centerHash) {
-          console.log("url", centerHash);
+          // console.log("url", centerHash);
           $location.search({ c: centerHash });
         });
 
@@ -175,18 +182,19 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           dateAdded: Date.now(),
           icon: local_icons.leaf_icon,
           opacity: 0.6,
-        }).then(function(ref) {
+          name: "name",
+          description: "",
+          votes: "",
+          images: "",
+          editable: true,
+        }).
+
+          then(function(ref) {
           var $id = ref.key();
           $scope.markInFocus = $id;
-          $scope.markDataInFocus = firebaseMarks.$getRecord($id);
-          console.log($scope.markDataInFocus);
-          $scope.marks.push({
-            lat: $scope.markDataInFocus.lat,
-            lng: $scope.markDataInFocus.lng,
-            icon: $scope.markDataInFocus.icon,
-            opacity: $scope.markDataInFocus.opacity,
-            id: $scope.markDataInFocus.$id,
-          });
+          $scope.markDataInFocus = firebaseMarks.$getRecord($scope.markInFocus);
+          console.log("markDataInFocus", $scope.markDataInFocus);
+
         });
       }
       $scope.btn = true;
