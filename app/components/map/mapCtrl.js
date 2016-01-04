@@ -74,6 +74,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         description: "",
         votes: "",
         images: "",
+        editable: true,
       });
     };
     firebaseMarks.$loaded()
@@ -143,6 +144,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         console.log(id);
         $scope.markInFocus = id;
         $scope.markDataInFocus = firebaseMarks.$getRecord(id);
+        console.log($scope.markDataInFocus);
         // console.log($scope.markDataInFocus.uid);
       }
     });
@@ -153,7 +155,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
       var mark = firebaseMarks[index];
       firebaseMarks.$remove(mark).then(function(ref){
         console.log("item was removed, here's some reference ", ref);
-        // Here I want to remove the instance of the marks array on the map.
+        $scope.marks.splice(index,1);
       });
       $scope.markDataInFocus = {};
       $scope.markInFocus = "";
