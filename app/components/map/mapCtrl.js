@@ -107,12 +107,12 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
             var newImage = document.createElement('img');
             newImage.src = $scope.srcData;
 // newImage.outerHTML
-            document.getElementById("imgTest").innerHTML = $scope.srcData;
-            console.log("Converted Base64 version is "+document.getElementById("imgTest").innerHTML);
-            $scope.markDataInFocus.images = document.getElementById("imgTest").innerHTML;
+            $scope.markDataInFocus.images = $scope.srcData;
             firebaseMarks.$save($scope.markDataInFocus)
               .then(function(ref){
                 console.log(ref);
+                $scope.markDataInFocus.images = "";
+                $scope.srcData = "";
             });
         };
         fileReader.readAsDataURL(fileToLoad);
