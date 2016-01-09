@@ -87,8 +87,13 @@
   </div>
 
 <!-- FOR NO MARK CHOOSEN -->
-  <div ng-show="markDataInFocus.editable===undefined">
-    <h4><-- Click Map for Info</h4>
+  <div class="col-xs-3 col-offset-xs-9" ng-show="markDataInFocus.editable===undefined">
+    <div class="container" ng-show="welcome">
+      <p>Welcome!</p>
+      <p> Click the Circles for Barrier Information</p>
+    </div>
+    <div class="container" ng-hide="welcome">
+    </div>
   </div>
 
 </div>

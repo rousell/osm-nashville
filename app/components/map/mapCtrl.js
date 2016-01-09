@@ -9,6 +9,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     $scope.marks = [];
     $scope.userAuth = AuthService.$getAuth();
     $scope.srcData = "";
+    $scope.welcome = true;
 
     var local_icons = {
         default_icon: {},
@@ -133,6 +134,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
       if ($scope.clickMark === false) {
         $scope.markInFocus = "";
         $scope.markDataInFocus = {};
+        $scope.welcome = false;
       } else {
         console.log("you clicked the map at: ", args.leafletEvent.latlng);
         $scope.addMarkers(args)
@@ -140,6 +142,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
             var $id = ref.key();
             $scope.markInFocus = $id;
             $scope.markDataInFocus = firebaseMarks.$getRecord($id);
+
             // console.log($scope.markDataInFocus);
             // console.log("added record with $id " + $id);
 
