@@ -55,8 +55,11 @@
         <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-down" ng-click"downVote()" data-loading-text=" ... "> 0</button>
       </label>
     </div>
-    <div ng-controller="ModalCtrl as modalCtrl">
-      <button class="btn btn-default" ng-click="modalCtrl.showUploadModal()">Upload Photo</button>
+    <div>
+      <img data-ng-src="{{markDataInFocus.images}}" class="img-thumbnail img-responsive" width="200" height="200"/>
+      <input ng-model="file" id="inputFileToLoad" type="file" />
+      <button ng-click="mapCtrl.encodeImageFileAsURL();">save</button>
+      <div id="imgTest"></div>
     </div>
 
     <button class="btn btn-default" ng-click="mapCtrl.saveBtn()">Save Mark Information</button>
@@ -75,8 +78,8 @@
     </div>
     <div>
       <label for="">Votes:
-        <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-up" ng-click="upVote()" data-loading-text=" ... "> 0</button>
-        <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-down" ng-click"downVote()" data-loading-text=" ... "> 0</button>
+        <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-up" ng-click="mapCtrl.upVote(markDataInFocus.$id)" data-loading-text=" ... "> 0</button>
+        <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-down" ng-click"mapCtrl.downVote()" data-loading-text=" ... "> 0</button>
       </label>
     </div>
   </div>

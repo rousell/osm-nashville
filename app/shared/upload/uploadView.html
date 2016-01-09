@@ -4,8 +4,11 @@
 
 <div class="container modal-body">
   <form>
-    <div id="picPreview"></div>
-    <button class="btn btn-default">Upload Photo!</button>
+    <input type="file" id="fileInput" name="file"/>
+    <br/>
+    <button ng-click="uploadCtrl.add($event)">Add</button>
+<!--     <p>{{uploadCtrl.data}}</p>
+    <div id="fileDisplayArea"></div> -->
   </form>
 </div>
 
