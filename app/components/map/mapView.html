@@ -58,7 +58,7 @@
     <div>
       <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" class="img-thumbnail img-responsive" width="200" height="200"/>
       <input ng-model="file" id="inputFileToLoad" type="file" />
-      <button ng-click="mapCtrl.encodeImageFileAsURL();">save</button>
+      <button class="btn btn-default btn-xs" ng-click="mapCtrl.encodeImageFileAsURL();">save image</button>
     </div>
 
     <button class="btn btn-default" ng-click="mapCtrl.saveBtn()">Save Mark Information</button>

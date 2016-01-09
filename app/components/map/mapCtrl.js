@@ -106,34 +106,16 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
 
             var newImage = document.createElement('img');
             newImage.src = $scope.srcData;
-// newImage.outerHTML
+
             $scope.markDataInFocus.images = $scope.srcData;
             firebaseMarks.$save($scope.markDataInFocus)
               .then(function(ref){
                 console.log(ref);
-                $scope.markDataInFocus.images = "";
-                $scope.srcData = "";
             });
         };
         fileReader.readAsDataURL(fileToLoad);
       }
     };
-
-    // this.add = function(e1) {
-    //   console.log('e1', e1);
-    //   var f = e1.target.files[0],
-    //       r = new FileReader();
-    //   r.onload = function(e) {
-    //     this.data = e.target.result;
-    //     ImgObj.data = e.target.result;
-    //     Img.$save().then(function(val){
-
-    //     }, function (error) {
-    //       console.log("ERROR", error);
-    //     });
-    //   };
-    //   r.readAsDataURL(f);
-    // };
 
     this.saveBtn = function(){
       // console.log("add mark button clicked");
