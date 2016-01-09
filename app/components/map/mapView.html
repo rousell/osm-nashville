@@ -33,7 +33,7 @@
   </nav>
 
 <!-- MAP INSTANCE -->
-  <leaflet class="col-xs-9" event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="540px"></leaflet>
+  <leaflet class="col-xs-9" event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="600px"></leaflet>
 
 <!-- FOR USER'S MARKS -->
   <div ng-show="markDataInFocus.editable" class="col-xs-3 col-offset-xs-9 markInfoBox container">
@@ -80,6 +80,9 @@
         <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-up" ng-click="mapCtrl.upVote(markDataInFocus.$id)" data-loading-text=" ... "> 0</button>
         <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-down" ng-click"mapCtrl.downVote()" data-loading-text=" ... "> 0</button>
       </label>
+    </div>
+    <div>
+      <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" class="img-thumbnail img-responsive" width="200" height="200"/>
     </div>
   </div>
 
