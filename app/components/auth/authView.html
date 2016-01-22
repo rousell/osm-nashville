@@ -1,33 +1,50 @@
-<div ng-hide="authCtrl.AuthData" id="login">
-  <div layout="row"><h2>Open Streets Nashville</h2></div>
-  <div flex>
-    <form>
-      <h4>Login</h4>
-      <div>
-        <label for="email">Email address:</label>
-        <input type="email" ng-model="authCtrl.email" placeholder="Email">
+<div ng-hide="authCtrl.AuthData" id="login" md-theme="altTheme">
+  <h2>Open Streets Nashville</h2>
+   <div layout-padding layout="column" layout-align="center center" style="min-height: 300px;" ng-cloak >
+    <form name="loginForm">
+      <md-input-container class="md-block">
+        <label>Email</label>
+        <input required type="email" ng-model="authCtrl.email" placeholder="Email">
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Password</label>
+        <input required type="password" ng-model="authCtrl.password" placeholder="Password">
+        <div ng-messages="loginForm.password.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <div layout="row">
+        <md-button ng-click="authCtrl.AuthLogin()" ng-disabled="loginForm.$invalid" layout layout-align="center end">Login</md-button>
       </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" ng-model="authCtrl.password" placeholder="Password">
-      </div>
-      <a ng-click="authCtrl.AuthLogin()"><button type="button">Log In</button></a>
     </form>
   </div>
-  <div flex>
-    <form>
-      <h4>Sign Up</h4>
-      <div>
-        <label for="email_rg">Email address</label>
-        <input type="email" ng-model="authCtrl.emailrg" placeholder="Email">
-      </div>
-      <div>
-        <label for="password_rg">Password</label>
-        <input type="password" ng-model="authCtrl.passwordrg" placeholder="Password">
-      </div>
-      <a href="#/login" ng-click="authCtrl.AuthRegister()"><button type="button">Register</button></a>
-    </form>
-  </div>
+<!--     <div flex>
+      <form>
+        <h4>Login</h4>
+        <div>
+          <label for="email">Email address:</label>
+          <input type="email" ng-model="authCtrl.email" placeholder="Email">
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" ng-model="authCtrl.password" placeholder="Password">
+        </div>
+        <a ng-click="authCtrl.AuthLogin()"><button type="button">Log In</button></a>
+      </form>
+    </div>
+    <div flex>
+      <form>
+        <h4>Sign Up</h4>
+        <div>
+          <label for="email_rg">Email address</label>
+          <input type="email" ng-model="authCtrl.emailrg" placeholder="Email">
+        </div>
+        <div>
+          <label for="password_rg">Password</label>
+          <input type="password" ng-model="authCtrl.passwordrg" placeholder="Password">
+        </div>
+        <a href="#/login" ng-click="authCtrl.AuthRegister()"><button type="button">Register</button></a>
+      </form> -->
 </div>
 
 
