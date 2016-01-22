@@ -19,5 +19,8 @@
     "bootstrap": "~3.3.5",
     "ui-leaflet": "~1.0.0",
     "angular-bootstrap": "~0.14.3"
+  },
+  "resolutions": {
+    "angular": "^1.4.8"
   }
 }
