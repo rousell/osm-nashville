@@ -1,6 +1,7 @@
-<div ng-hide="authCtrl.AuthData" id="login" md-theme="altTheme">
+<div ng-hide="authCtrl.AuthData" id="login" md-theme="altTheme" layout="column" ng-cloak class="md-inline-form">
+  <md-content md-theme="altTheme" layout-gt-sm="row" layout-padding layout-align="center center">
   <h2>Open Streets Nashville</h2>
-   <div layout-padding layout="column" layout-align="center center" style="min-height: 300px;" ng-cloak >
+  <div layout-padding layout="column" style="min-height: 300px;" ng-cloak >
     <form name="loginForm">
       <md-input-container class="md-block">
         <label>Email</label>
@@ -18,6 +19,7 @@
       </div>
     </form>
   </div>
+  </md-content>
 <!--     <div flex>
       <form>
         <h4>Login</h4>
