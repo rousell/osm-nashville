@@ -22,10 +22,11 @@
     </md-toolbar>
 
 <!-- MAP INSTANCE -->
-  <leaflet class="col-xs-9" event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="500px"></leaflet>
+<div layout="row">
+  <leaflet flex="75" event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="500px"></leaflet>
 
 <!-- FOR USER'S MARKS -->
-  <div ng-show="markDataInFocus.editable" class="col-xs-3 col-offset-xs-9 markInfoBox container">
+  <div ng-show="markDataInFocus.editable" flex="25" class="col-xs-3 col-offset-xs-9 markInfoBox container">
     <div class="row">
       <h4 class="col-xs-8">Your Mark</h4>
       <span class="col-sm-offset-2 glyphicon glyphicon-remove" ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'></span>
@@ -84,5 +85,7 @@
     <div class="container" ng-hide="welcome">
     </div>
   </div>
+
+</div>
 
 </div>
