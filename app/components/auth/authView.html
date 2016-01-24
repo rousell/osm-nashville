@@ -1,52 +1,56 @@
-<div ng-hide="authCtrl.AuthData" id="login" md-theme="altTheme" layout="column" ng-cloak class="md-inline-form">
-  <md-content md-theme="altTheme" layout-gt-sm="row" layout-padding layout-align="center center">
-  <h2>Open Streets Nashville</h2>
-  <div layout-padding layout="column" style="min-height: 300px;" ng-cloak >
-    <form name="loginForm">
-      <md-input-container class="md-block">
-        <label>Email</label>
-        <input required type="email" ng-model="authCtrl.email" placeholder="Email">
-      </md-input-container>
-      <md-input-container class="md-block">
-        <label>Password</label>
-        <input required type="password" ng-model="authCtrl.password" placeholder="Password">
-        <div ng-messages="loginForm.password.$error">
-          <div ng-message="required">This is required.</div>
+<div ng-hide="authCtrl.AuthData" id="login" md-theme="default" layout="row">
+  <div flex="20"></div>
+
+  <md-content layout-padding layout-align="center center" flex="60">
+    <h2>Open Streets Nashville</h2>
+    <div layout="row">
+
+    <div flex="45">
+      <form name="loginForm">
+        <h4 class="md-title">Log In</h4>
+        <md-input-container class="md-block">
+          <!-- <label>Email</label> -->
+          <input required type="email" ng-model="authCtrl.email" placeholder="Email">
+        </md-input-container>
+        <md-input-container class="md-block">
+          <!-- <label>Password</label> -->
+          <input required type="password" ng-model="authCtrl.password" placeholder="Password">
+<!--           <div ng-messages="loginForm.password.$error">
+            <div ng-message="required">This is required.</div>
+          </div> -->
+        </md-input-container>
+        <div layout="row">
+          <md-button ng-click="authCtrl.AuthLogin()" ng-disabled="loginForm.$invalid" layout layout-align="center center">Login</md-button>
         </div>
-      </md-input-container>
-      <div layout="row">
-        <md-button ng-click="authCtrl.AuthLogin()" ng-disabled="loginForm.$invalid" layout layout-align="center end">Login</md-button>
-      </div>
-    </form>
-  </div>
-  </md-content>
-<!--     <div flex>
-      <form>
-        <h4>Login</h4>
-        <div>
-          <label for="email">Email address:</label>
-          <input type="email" ng-model="authCtrl.email" placeholder="Email">
-        </div>
-        <div>
-          <label for="password">Password:</label>
-          <input type="password" ng-model="authCtrl.password" placeholder="Password">
-        </div>
-        <a ng-click="authCtrl.AuthLogin()"><button type="button">Log In</button></a>
       </form>
     </div>
-    <div flex>
-      <form>
-        <h4>Sign Up</h4>
-        <div>
-          <label for="email_rg">Email address</label>
-          <input type="email" ng-model="authCtrl.emailrg" placeholder="Email">
+
+    <div flex="10"></div>
+
+    <div flex="45">
+      <form name="registerForm">
+        <h4 class="md-title">Sign Up</h4>
+        <md-input-container class="md-block">
+            <!-- <label>Email</label> -->
+          <input required type="email" ng-model="authCtrl.emailrg" placeholder="Email">
+        </md-input-container>
+        <md-input-container class="md-block">
+          <!-- <label>Password</label> -->
+          <input required type="password" ng-model="authCtrl.passwordrg" placeholder="Password">
+<!--           <div ng-messages="registerForm.password.$error">
+            <div ng-message="required">This is required.</div>
+          </div> -->
+        </md-input-container>
+        <div layout="row">
+          <md-button ng-click="authCtrl.AuthRegister()" ng-disabled="registerForm.$invalid" layout layout-align="center center">Register</md-button>
         </div>
-        <div>
-          <label for="password_rg">Password</label>
-          <input type="password" ng-model="authCtrl.passwordrg" placeholder="Password">
-        </div>
-        <a href="#/login" ng-click="authCtrl.AuthRegister()"><button type="button">Register</button></a>
-      </form> -->
+      </form>
+    </div>
+
+    </div>
+  </md-content>
+
+  <div flex="20"></div>
 </div>
 
 
