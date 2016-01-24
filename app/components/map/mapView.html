@@ -1,39 +1,28 @@
-<!-- NAV BAR -->
 <div ng-controller="MapCtrl as mapCtrl">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">OSM Nash</a>
-      </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a ng-click='mapCtrl.clickMark()'>Add Mark</a></li>
-          <li><a ng-hide='btn' ng-click='mapCtrl.geolocate()'>Mark Current Location</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Profile</a></li>
-              <li><a href="#">My Marks</a></li>
-              <li role="separator" class="divider"></li>
-              <li ng-controller="AuthCtrl as authCtrl"><a ng-click="authCtrl.AuthLogout()">Log Out</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+<!-- NAV BAR -->
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>Open Maps Nashville</span>
+        </h2>
+        <span flex></span>
+        <md-button aria-label="Add Marker" ng-click='mapCtrl.clickMark()'>
+          Add Marker
+        </md-button>
+        <md-button aria-label="Mark Current Location" ng-hide='btn' ng-click='mapCtrl.geolocate()'>
+          Add Current Location
+        </md-button>
+        <div ng-controller="AuthCtrl as authCtrl">
+          <md-button aria-label="Log Out" ng-click="authCtrl.AuthLogout()">
+            Log Out
+          </md-button>
+        </div>
+      </div>
+    </md-toolbar>
 
 <!-- MAP INSTANCE -->
-  <leaflet class="col-xs-9" event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="600px"></leaflet>
+  <leaflet class="col-xs-9" event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="500px"></leaflet>
 
 <!-- FOR USER'S MARKS -->
   <div ng-show="markDataInFocus.editable" class="col-xs-3 col-offset-xs-9 markInfoBox container">
