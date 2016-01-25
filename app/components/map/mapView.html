@@ -1,61 +1,53 @@
 <div ng-controller="MapCtrl as mapCtrl">
 
 <!-- NAV BAR -->
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>
-          <span>Open Maps Nashville</span>
-        </h2>
-        <span flex></span>
-        <md-button aria-label="Add Marker" ng-click='mapCtrl.clickMark()'>
-          Add Marker
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>
+        <span>Open Maps Nashville</span>
+      </h2>
+      <span flex></span>
+      <md-button aria-label="Add Marker" ng-click='mapCtrl.clickMark()'>
+        Add Marker
+      </md-button>
+      <md-button aria-label="Mark Current Location" ng-hide='btn' ng-click='mapCtrl.geolocate()'>
+        Add Current Location
+      </md-button>
+      <div ng-controller="AuthCtrl as authCtrl">
+        <md-button aria-label="Log Out" ng-click="authCtrl.AuthLogout()">
+          Log Out
         </md-button>
-        <md-button aria-label="Mark Current Location" ng-hide='btn' ng-click='mapCtrl.geolocate()'>
-          Add Current Location
-        </md-button>
-        <div ng-controller="AuthCtrl as authCtrl">
-          <md-button aria-label="Log Out" ng-click="authCtrl.AuthLogout()">
-            Log Out
-          </md-button>
-        </div>
       </div>
-    </md-toolbar>
+    </div>
+  </md-toolbar>
 
-<!-- MAP INSTANCE -->
 <div layout="row">
+<!-- MAP INSTANCE -->
   <leaflet flex="75" event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="500px"></leaflet>
 
 <!-- FOR USER'S MARKS -->
-  <div ng-show="markDataInFocus.editable" flex="25" class="col-xs-3 col-offset-xs-9 markInfoBox container">
-    <div class="row">
-      <h4 class="col-xs-8">Your Mark</h4>
-      <span class="col-sm-offset-2 glyphicon glyphicon-remove" ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'></span>
-    </div>
-    <div class="form-group-sm">
-      <label for="">Mark Label:</label>
+  <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable" flex="25" class="markInfoBox">
+    <h4 class="md-title">Your Mark</h4>
+    <span ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'>X</span>
+    <md-input-container class="md-block">
+      <label>Mark Label:</label>
       <input class="form-control" type="text" ng-model="markDataInFocus.name" />
-    </div>
-    <div class="form-group-sm">
-      <label for="">Description:</label>
+    </md-input-container>
+    <md-input-container class="md-block">
+      <label>Description:</label>
       <textarea class="form-control custom-control" rows="2" style="resize:none" ng-model="markDataInFocus.description"></textarea>
-    </div>
-    <div>
-      <label for="">Votes:
-        <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-up" ng-click="upVote()" data-loading-text=" ... "> 0</button>
-        <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-thumbs-down" ng-click"downVote()" data-loading-text=" ... "> 0</button>
-      </label>
-    </div>
-    <div>
-      <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" class="img-thumbnail img-responsive" width="200" height="200"/>
+    </md-input-container>
+    <md-input-container class="md-block">
+      <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
       <input ng-model="file" id="inputFileToLoad" type="file" />
       <button class="btn btn-default btn-xs" ng-click="mapCtrl.encodeImageFileAsURL();">save image</button>
-    </div>
+    </md-input-container>
 
     <button class="btn btn-default" ng-click="mapCtrl.saveBtn()">Save Mark Information</button>
-  </div>
+  </md-content>
 
 <!-- FOR OTHER MARKS -->
-  <div ng-show="markDataInFocus.editable===false" class="col-xs-3 col-offset-xs-9 markInfoBox container">
+  <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable===false" class="markInfoBox" flex="25">
     <h4>Others' Mark</h4>
     <div class="form-group-sm">
       <label for="">Mark Label:</label>
@@ -74,17 +66,15 @@
     <div>
       <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" class="img-thumbnail img-responsive" width="200" height="200"/>
     </div>
-  </div>
+  </md-content>
 
 <!-- FOR NO MARK CHOOSEN -->
-  <div class="col-xs-3 col-offset-xs-9" ng-show="markDataInFocus.editable===undefined">
+  <md-content layout-padding layout-align="center center" class="markInfoBox" flex="25" ng-show="markDataInFocus.editable===undefined" ng-show="welcome">
     <div class="container" ng-show="welcome">
       <p>Welcome!</p>
       <p> Click the Circles for Barrier Information</p>
     </div>
-    <div class="container" ng-hide="welcome">
-    </div>
-  </div>
+  </md-content>
 
 </div>
 
