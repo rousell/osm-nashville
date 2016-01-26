@@ -1,22 +1,6 @@
 h2 {
   text-align: center; }
 
-#markInfo {
-  background-color: #FFFFCC;
-  height: 540px; }
-
-.markInfoBox {
-  border: 1px solid #d3d3d3; }
-
-.glyphicon-remove {
-  min-height: 20px;
-  line-height: 20px;
-  padding-top: 7px;
-  display: inline-block; }
-
-#imgTest {
-  max-width: 40px; }
-
 #login {
   height: 800px;
   -moz-background-size: cover;
