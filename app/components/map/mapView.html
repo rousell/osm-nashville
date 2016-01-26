@@ -23,7 +23,7 @@
 
 <div layout="row">
 <!-- MAP INSTANCE -->
-  <div flex="75">
+  <div flex="75" layout-align="center center">
   <leaflet event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="500px"></leaflet>
   </div>
 <!-- FOR USER'S MARKS -->
@@ -31,17 +31,17 @@
     <h4 class="md-title">Your Mark</h4>
     <span ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'>X</span>
     <md-input-container class="md-block">
-      <label>Mark Label:</label>
+      <label>Location</label>
       <input class="form-control" type="text" ng-model="markDataInFocus.name" />
     </md-input-container>
     <md-input-container class="md-block">
-      <label>Description:</label>
+      <label>Description</label>
       <textarea class="form-control custom-control" rows="2" style="resize:none" ng-model="markDataInFocus.description"></textarea>
     </md-input-container>
     <md-input-container class="md-block">
       <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
 
-      <input ng-model="file" id="inputFileToLoad" type="file" required> />
+      <input ng-model="file" id="inputFileToLoad" type="file" required>
       <md-button class="md-raised md-primary" ng-click="mapCtrl.encodeImageFileAsURL();">save image</md-button>
     </md-input-container>
 
@@ -51,10 +51,10 @@
 <!-- FOR OTHER MARKS -->
   <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable===false" class="markInfoBox" flex="25">
     <h4>Others' Mark</h4>
-    <div class="form-group-sm">
-      <label for="">Mark Label:</label>
+    <md-input-container class="md-block">
+      <label>Location</label>
       <input class="form-control" type="text" ng-model="markDataInFocus.name" disabled />
-    </div>
+    </md-input-container>
     <div class="form-group-sm">
       <label for="">Description:</label>
       <textarea class="form-control custom-control" rows="2" style="resize:none" ng-model="markDataInFocus.description" disabled></textarea>
