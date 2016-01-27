@@ -33,7 +33,7 @@
 <!-- FOR USER'S MARKS -->
 
 
-<!--   <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable" flex="25" class="markInfoBox">
+<!--   <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable">
     <h4 class="md-title">Your Mark</h4>
     <span ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'>X</span>
     <md-input-container class="md-block">
@@ -58,7 +58,7 @@
 <!-- FOR OTHER MARKS -->
 
 
-<!--   <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable===false" class="markInfoBox" flex="25">
+<!--   <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable===false">
     <h4>Others' Mark</h4>
     <md-input-container class="md-block">
       <label>Location</label>
@@ -111,7 +111,7 @@
         </md-input-container>
         <md-input-container class="md-block">
           <label>Description</label>
-          <input class="form-control" type="text" ng-model="markDataInFocus.description" disabled />
+          <input class="form-control" type="text" ng-model="markDataInFocus.description" />
         </md-input-container>
         <md-input-container class="md-block">
           <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
