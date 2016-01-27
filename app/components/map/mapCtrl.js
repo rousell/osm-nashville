@@ -1,4 +1,4 @@
-app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthService', '$location', 'leafletMarkerEvents', function($scope, leafletData, $firebaseArray, AuthService, $location, leafletMarkerEvents) {
+app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthService', '$location', 'leafletMarkerEvents', '$mdSidenav', '$log', function($scope, leafletData, $firebaseArray, AuthService, $location, leafletMarkerEvents, $mdSidenav, $log) {
 
     var ref = new Firebase("https://osm-nashville.firebaseio.com/Marks");
     var firebaseMarks = $firebaseArray(ref);
@@ -162,6 +162,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
 
     $scope.$on('leafletDirectiveMarker.click', function(e, args){
       console.log(args);
+      $scope.toggleRight();
       if (args.model.id === undefined){
         var $id = args.model.$id;
         console.log($id);
@@ -243,5 +244,22 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
       }
       $scope.btn = true;
     };
+
+// SIDENAV CODE
+    $scope.toggleRight = buildToggler('right');
+    $scope.isOpenRight = function(){
+      return $mdSidenav('right').isOpen();
+    };
+
+    function buildToggler(navID) {
+      return function() {
+        $mdSidenav(navID)
+          .toggle()
+          .then(function () {
+            $log.debug("toggle " + navID + " is done");
+          });
+      };
+    }
+
 }]);
 

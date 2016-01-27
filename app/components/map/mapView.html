@@ -7,6 +7,9 @@
         <span>Open Maps Nashville</span>
       </h2>
       <span flex></span>
+      <md-button ng-click="toggleRight()" ng-hide="isOpenRight()" class="md-primary">
+        Toggle right
+      </md-button>
       <md-button aria-label="Add Marker" ng-click='mapCtrl.clickMark()'>
         Add Marker
       </md-button>
@@ -23,11 +26,14 @@
 
 <div layout="row">
 <!-- MAP INSTANCE -->
-  <div flex="75" layout-align="center center">
+  <div flex="100" layout-align="center center">
   <leaflet event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="500px"></leaflet>
   </div>
+
 <!-- FOR USER'S MARKS -->
-  <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable" flex="25" class="markInfoBox">
+
+
+<!--   <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable" flex="25" class="markInfoBox">
     <h4 class="md-title">Your Mark</h4>
     <span ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'>X</span>
     <md-input-container class="md-block">
@@ -46,10 +52,13 @@
     </md-input-container>
 
     <md-button class="md-raised" ng-click="mapCtrl.saveBtn()">Save Mark Information</md-button>
-  </md-content>
+  </md-content> -->
+
 
 <!-- FOR OTHER MARKS -->
-  <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable===false" class="markInfoBox" flex="25">
+
+
+<!--   <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable===false" class="markInfoBox" flex="25">
     <h4>Others' Mark</h4>
     <md-input-container class="md-block">
       <label>Location</label>
@@ -67,16 +76,55 @@
     <div>
       <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
     </div>
-  </md-content>
+  </md-content> -->
+
 
 <!-- FOR NO MARK CHOOSEN -->
-  <md-content layout-padding layout-align="center center" class="markInfoBox" flex="25" ng-show="markDataInFocus.editable===undefined" ng-show="welcome">
+
+
+<!--   <md-content layout-padding layout-align="center center" class="markInfoBox" flex="25" ng-show="markDataInFocus.editable===undefined" ng-show="welcome">
     <div ng-show="welcome">
       <p>Welcome!</p>
       <p> Click the Circles for Barrier Information</p>
+      <md-button ng-click="toggleRight()"
+            ng-hide="isOpenRight()"
+            class="md-primary">
+            Toggle right
+      </md-button>
     </div>
-  </md-content>
+  </md-content> -->
 
-</div>
 
-</div>
+<!-- FOR SIDENAV ATTEMPT -->
+
+  <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+    <md-toolbar class="md-theme-light">
+      <h1 class="md-toolbar-tools">Sidenav Right</h1>
+    </md-toolbar>
+    <md-content ng-controller="RightCtrl" layout-padding>
+      <form>
+
+      <!-- COME FROM USER MARK'S -->
+        <md-input-container class="md-block">
+          <label>Location</label>
+          <input class="form-control" type="text" ng-model="markDataInFocus.name" />
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <input class="form-control" type="text" ng-model="markDataInFocus.description" disabled />
+        </md-input-container>
+        <md-input-container class="md-block">
+          <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
+          <input ng-model="file" id="inputFileToLoad" type="file" required>
+          <md-button class="md-raised md-primary" ng-click="mapCtrl.encodeImageFileAsURL();">save image</md-button>
+        </md-input-container>
+        <md-button class="md-raised" ng-click="mapCtrl.saveBtn()">Save Mark Information</md-button>
+      </form>
+      <span ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'><md-button ng-click="close()" class="md-primary">Delete Mark!</md-button></span>
+    </md-content>
+  </md-sidenav>
+
+
+
+</div> <!-- end of body / layout row declaration -->
+</div> <!-- end of map controlled declaration -->
