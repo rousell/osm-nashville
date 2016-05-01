@@ -95,16 +95,17 @@
   </md-content> -->
 
 
-<!-- FOR SIDENAV ATTEMPT -->
+<!-- SIDENAV -->
 
   <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-    <md-toolbar class="md-theme-light">
-      <h1 class="md-toolbar-tools">Sidenav Right</h1>
-    </md-toolbar>
-    <md-content ng-controller="RightCtrl" layout-padding>
-      <form>
 
-      <!-- COME FROM USER MARK'S -->
+
+    <!-- FROM USER MARK'S -->
+    <md-toolbar class="md-theme-light" ng-show="markDataInFocus.editable">
+      <h1 class="md-toolbar-tools">Your Mark</h1>
+    </md-toolbar>
+    <md-content ng-controller="RightCtrl" layout-padding ng-show="markDataInFocus.editable">
+      <form>
         <md-input-container class="md-block">
           <label>Location</label>
           <input class="form-control" type="text" ng-model="markDataInFocus.name" />
@@ -122,6 +123,27 @@
       </form>
       <span ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'><md-button ng-click="close()" class="md-primary">Delete Mark!</md-button></span>
     </md-content>
+
+    <!-- FROM OTHER USER MARK'S -->
+    <md-toolbar class="md-theme-light" ng-show="!markDataInFocus.editable">
+      <h1 class="md-toolbar-tools">User Mark</h1>
+    </md-toolbar>
+    <md-content ng-controller="RightCtrl" layout-padding ng-show="!markDataInFocus.editable">
+      <form>
+        <md-input-container class="md-block">
+          <label>Location</label>
+          <input class="form-control" type="text" ng-model="markDataInFocus.name" />
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <input class="form-control" type="text" ng-model="markDataInFocus.description" />
+        </md-input-container>
+        <md-input-container class="md-block">
+          <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
+        </md-input-container>
+      </form>
+    </md-content>
+
   </md-sidenav>
 
 
