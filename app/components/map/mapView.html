@@ -7,9 +7,9 @@
         <span>Open Maps Nashville</span>
       </h2>
       <span flex></span>
-      <md-button ng-click="toggleRight()" ng-hide="isOpenRight()" class="md-primary">
+      <!-- <md-button ng-click="toggleRight()" ng-hide="isOpenRight()" class="md-primary">
         Toggle right
-      </md-button>
+      </md-button> -->
       <md-button aria-label="Add Marker" ng-click='mapCtrl.clickMark()'>
         Add Marker
       </md-button>
@@ -29,55 +29,6 @@
   <div flex="100" layout-align="center center">
   <leaflet event-broadcast='events' controls='controls' lf-center="center" url-hash-center="yes" markers="userMarks" layers="layers" height="500px"></leaflet>
   </div>
-
-<!-- FOR USER'S MARKS -->
-
-
-<!--   <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable">
-    <h4 class="md-title">Your Mark</h4>
-    <span ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'>X</span>
-    <md-input-container class="md-block">
-      <label>Location</label>
-      <input class="form-control" type="text" ng-model="markDataInFocus.name" />
-    </md-input-container>
-    <md-input-container class="md-block">
-      <label>Description</label>
-      <input class="form-control" type="text" ng-model="markDataInFocus.description" disabled />
-    </md-input-container>
-    <md-input-container class="md-block">
-      <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
-
-      <input ng-model="file" id="inputFileToLoad" type="file" required>
-      <md-button class="md-raised md-primary" ng-click="mapCtrl.encodeImageFileAsURL();">save image</md-button>
-    </md-input-container>
-
-    <md-button class="md-raised" ng-click="mapCtrl.saveBtn()">Save Mark Information</md-button>
-  </md-content> -->
-
-
-<!-- FOR OTHER MARKS -->
-
-
-<!--   <md-content layout-padding layout-align="center center" ng-show="markDataInFocus.editable===false">
-    <h4>Others' Mark</h4>
-    <md-input-container class="md-block">
-      <label>Location</label>
-      <input class="form-control" type="text" ng-model="markDataInFocus.name" disabled />
-    </md-input-container>
-    <md-input-container class="md-block">
-      <label>Description</label>
-      <input class="form-control" type="text" ng-model="markDataInFocus.description" disabled />
-    </md-input-container>
-    <div>
-      <label>Votes</label>
-        <button type="button" ng-click="mapCtrl.upVote(markDataInFocus.$id)" data-loading-text=" ... "> 0</button>
-        <button type="button" ng-click"mapCtrl.downVote()" data-loading-text=" ... "> 0</button>
-    </div>
-    <div>
-      <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
-    </div>
-  </md-content> -->
-
 
 <!-- FOR NO MARK CHOOSEN -->
 
@@ -102,7 +53,7 @@
 
     <!-- FROM USER MARK'S -->
     <md-toolbar class="md-theme-light" ng-show="markDataInFocus.editable">
-      <h1 class="md-toolbar-tools">Your Mark</h1>
+      <h1 class="md-toolbar-tools">{{markDataInFocus.name}}</h1>
     </md-toolbar>
     <md-content ng-controller="RightCtrl" layout-padding ng-show="markDataInFocus.editable">
       <form>
@@ -126,14 +77,14 @@
 
     <!-- FROM OTHER USER MARK'S -->
     <md-toolbar class="md-theme-light" ng-show="!markDataInFocus.editable">
-      <h1 class="md-toolbar-tools">User Mark</h1>
+      <h1 class="md-toolbar-tools">{{markDataInFocus.name}}</h1>
     </md-toolbar>
     <md-content ng-controller="RightCtrl" layout-padding ng-show="!markDataInFocus.editable">
       <form>
-        <md-input-container class="md-block">
+        <!-- <md-input-container class="md-block">
           <label>Location</label>
           <input class="form-control" type="text" ng-model="markDataInFocus.name" />
-        </md-input-container>
+        </md-input-container> -->
         <md-input-container class="md-block">
           <label>Description</label>
           <input class="form-control" type="text" ng-model="markDataInFocus.description" />
