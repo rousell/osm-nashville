@@ -55,7 +55,26 @@
     <md-toolbar class="md-theme-light" ng-show="markDataInFocus.editable">
       <h1 class="md-toolbar-tools">{{markDataInFocus.name}}</h1>
     </md-toolbar>
+
+
     <md-content ng-controller="RightCtrl" layout-padding ng-show="markDataInFocus.editable">
+
+      <md-card>
+        <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Icon action buttons</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p>
+            {{markDataInFocus.description}}
+          </p>
+        </md-card-content>
+      </md-card>
+
+      <!-- EDIT CARD INFORMATION FORM -->
+
       <form>
         <md-input-container class="md-block">
           <label>Location</label>
@@ -79,21 +98,36 @@
     <md-toolbar class="md-theme-light" ng-show="!markDataInFocus.editable">
       <h1 class="md-toolbar-tools">{{markDataInFocus.name}}</h1>
     </md-toolbar>
-    <md-content ng-controller="RightCtrl" layout-padding ng-show="!markDataInFocus.editable">
-      <form>
+
+    <md-card ng-controller="RightCtrl" ng-show="!markDataInFocus.editable">
+        <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" class="md-card-image" alt="mark-image">
+ <!--        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Icon action buttons</span>
+          </md-card-title-text>
+        </md-card-title> -->
+        <md-card-content>
+          <p>
+            {{markDataInFocus.description}}
+          </p>
+        </md-card-content>
+      </md-card>
+
+    <!-- <md-content ng-controller="RightCtrl" layout-padding ng-show="!markDataInFocus.editable"> -->
+      <!-- <form> -->
         <!-- <md-input-container class="md-block">
           <label>Location</label>
           <input class="form-control" type="text" ng-model="markDataInFocus.name" />
         </md-input-container> -->
-        <md-input-container class="md-block">
+        <!-- <md-input-container class="md-block">
           <label>Description</label>
           <input class="form-control" type="text" ng-model="markDataInFocus.description" />
         </md-input-container>
         <md-input-container class="md-block">
           <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
         </md-input-container>
-      </form>
-    </md-content>
+      </form> -->
+    <!-- </md-content> -->
 
   </md-sidenav>
 

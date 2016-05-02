@@ -168,14 +168,12 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         console.log($id);
         $scope.markInFocus = $id;
         $scope.markDataInFocus = firebaseMarks.$getRecord($id);
-        // console.log($scope.markDataInFocus.uid);
       } else if (args.model.$id === undefined){
         var id = args.model.id;
         console.log(id);
         $scope.markInFocus = id;
         $scope.markDataInFocus = firebaseMarks.$getRecord(id);
         console.log($scope.markDataInFocus);
-        // console.log($scope.markDataInFocus.uid);
       }
     });
 
@@ -199,7 +197,6 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         console.log("vote num ", $scope.markDataInFocus.votes);
       }
       firebaseMarks.$save(mark).then(function(ref){
-        console.log("item was removed, here's some reference ", ref);
       });
       console.log($scope.markDataInFocus);
     };
@@ -230,11 +227,12 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
           dateAdded: Date.now(),
           icon: local_icons.leaf_icon,
           opacity: 0.6,
-          name: "name",
+          name: "",
           description: "",
           votes: 0,
           images: "",
           editable: true,
+          recordComplete: false,
         }).then(function(ref) {
           var $id = ref.key();
           $scope.markInFocus = $id;
