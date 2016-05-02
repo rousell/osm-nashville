@@ -71,7 +71,9 @@
             {{markDataInFocus.description}}
           </p>
         </md-card-content>
+        <span ng-click="mapCtrl.editMark(markDataInFocus.$id)"><md-button class="md-primary">Edit Mark</md-button></span>
       </md-card>
+
 
       <!-- EDIT CARD INFORMATION FORM -->
 
@@ -102,11 +104,6 @@
 
     <md-card ng-controller="RightCtrl" ng-show="!markDataInFocus.editable">
         <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" class="md-card-image" alt="mark-image">
- <!--        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Icon action buttons</span>
-          </md-card-title-text>
-        </md-card-title> -->
         <md-card-content>
           <p>
             Description: {{markDataInFocus.description}}

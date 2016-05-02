@@ -180,15 +180,22 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     });
 
     this.deleteMark = function($id) {
-      console.log("clicked");
       var index = firebaseMarks.$indexFor($id);
       var mark = firebaseMarks[index];
       firebaseMarks.$remove(mark).then(function(ref){
-        console.log("item was removed, here's some reference ", ref);
         $scope.marks.splice(index,1);
       });
       $scope.markDataInFocus = {};
       $scope.markInFocus = "";
+    };
+
+    this.editMark = function($id) {
+      var index = firebaseMarks.$indexFor($id);
+      var mark = firebaseMarks[index];
+      mark.recordComplete = false;
+      // firebaseMarks.$update(mark).then(function(ref){
+      //   console.log("updated record to incomplete: ", ref);
+      // });
     };
 
     this.upVote = function($id) {
