@@ -71,7 +71,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         dateAdded: Date.now(),
         icon: local_icons.leaf_icon,
         opacity: 0.6,
-        name: "name",
+        name: "",
         description: "",
         votes: 0,
         images: "",
