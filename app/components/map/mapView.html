@@ -59,11 +59,11 @@
 
     <md-content ng-controller="RightCtrl" layout-padding ng-show="markDataInFocus.editable">
 
-      <md-card>
+      <md-card ng-show="markDataInFocus.recordComplete">
         <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" class="md-card-image" alt="Washed Out">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">Icon action buttons</span>
+            <span class="md-headline">{{markDataInFocus.name}}</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
@@ -75,7 +75,7 @@
 
       <!-- EDIT CARD INFORMATION FORM -->
 
-      <form>
+      <form ng-show="!markDataInFocus.recordComplete">
         <md-input-container class="md-block">
           <label>Location</label>
           <input class="form-control" type="text" ng-model="markDataInFocus.name" />
@@ -85,13 +85,14 @@
           <input class="form-control" type="text" ng-model="markDataInFocus.description" />
         </md-input-container>
         <md-input-container class="md-block">
-          <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/>
-          <input ng-model="file" id="inputFileToLoad" type="file" required>
+<!--           <img ng-src="{{markDataInFocus.images}}" ng-show="markDataInFocus.images" width="200" height="200"/> -->
+          <input ng-model="file" id="inputFileToLoad" type="file" aria-label="image-upload" required>
           <md-button class="md-raised md-primary" ng-click="mapCtrl.encodeImageFileAsURL();">save image</md-button>
         </md-input-container>
         <md-button class="md-raised" ng-click="mapCtrl.saveBtn()">Save Mark Information</md-button>
+
+        <span ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'><md-button ng-click="close()" class="md-primary">Delete Mark!</md-button></span>
       </form>
-      <span ng-click='mapCtrl.deleteMark(markDataInFocus.$id)'><md-button ng-click="close()" class="md-primary">Delete Mark!</md-button></span>
     </md-content>
 
     <!-- FROM OTHER USER MARK'S -->
@@ -108,7 +109,7 @@
         </md-card-title> -->
         <md-card-content>
           <p>
-            {{markDataInFocus.description}}
+            Description: {{markDataInFocus.description}}
           </p>
         </md-card-content>
       </md-card>

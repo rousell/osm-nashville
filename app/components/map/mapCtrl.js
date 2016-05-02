@@ -64,7 +64,6 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     });
 
     $scope.addMarkers = function(args){
-
       return firebaseMarks.$add({
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
@@ -79,6 +78,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
         editable: true,
       });
     };
+
     firebaseMarks.$loaded()
       .then(function(){
         angular.forEach(firebaseMarks, function(mark) {
@@ -119,6 +119,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
     };
 
     this.saveBtn = function(){
+      $scope.markDataInFocus.recordComplete = true;
       // console.log("add mark button clicked");
       firebaseMarks.$save($scope.markDataInFocus)
         .then(function(ref){
@@ -153,6 +154,7 @@ app.controller('MapCtrl', [ '$scope', 'leafletData', '$firebaseArray', 'AuthServ
               opacity: $scope.markDataInFocus.opacity,
               id: $scope.markDataInFocus.$id,
               editable: true,
+
             });
           });
         $scope.clickMark = false;
